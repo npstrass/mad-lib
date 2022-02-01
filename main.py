@@ -1,3 +1,7 @@
+# did my best with finding a solution to add the inputs within the mad lib components since the length varies each time.
+# Please let me know of any comments or suggestions to improve this program!!
+# I know it can be better. :)
+
 import requests
 
 response = requests.get("http://madlibz.herokuapp.com/api/random")
