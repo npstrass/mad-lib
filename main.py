@@ -1,18 +1,25 @@
-# # string concatenation
-# # string that says "subscribe to ______"
-# youtuber = "" # a string variable
-#
-# # a few ways to do this...
-# print("subscribe to " + youtuber)
-# print("subscribe to {}".format(youtuber))
-# print(f"subscribe to {youtuber}") # best way?
+import requests
 
-adj = input("Adjective: ")
-verb1 = input("Verb: ")
-verb2 = input("Verb: ")
-famous_person = input("Famous person: ")
+response = requests.get("http://madlibz.herokuapp.com/api/random")
 
-madlib = f"Computer programming is so {adj}! It makes me so excited all the time because I love to {verb1}. Stay " \
-         f"hydrated and {verb2} like you are {famous_person}!"
+lib = response.json()
 
-print(madlib)
+title = lib['title']
+blanks = lib['blanks']
+value = lib['value']
+
+inputs = []
+result = []
+
+for i in blanks:
+    inputs.append(input(f"{i}: "))
+
+num = min(len(value), len(inputs))
+result = [None]*(num*2)
+result[::2] = value[:num]
+result[1::2] = inputs[:num]
+result.extend(value[num:])
+result.extend(inputs[num:])
+del result[-1]
+
+print(''.join([str(i) for i in result]))
